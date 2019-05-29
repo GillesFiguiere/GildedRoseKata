@@ -18,54 +18,53 @@ class GildedRose {
     return this.items
   }
 
+  increaseQuality(item) {
+    if (item.quality < 50) {
+      item.quality++
+    }
+  }
+
+  decreaseQuality(item) {
+    if (item.quality > 0) {
+      item.quality--
+    }
+  }
+
   updateItem(item) {
     if (item.name == SULFURA) return
 
     item.sellIn--
 
-    if (item.name == AGED_BRIE || item.name == BACKSTAGE_PASSES) {
+    if (item.name == AGED_BRIE) {
+      this.increaseQuality(item)
+
+    } else if (item.name == BACKSTAGE_PASSES) {
       if (item.quality < 50) {
         item.quality++
-        if (item.name == BACKSTAGE_PASSES) {
-          if (item.sellIn < 10) {
-            if (item.quality < 50) {
-              item.quality++
-            }
-          }
-          if (item.sellIn < 5) {
-            if (item.quality < 50) {
-              item.quality++
-            }
-          }
+        if (item.sellIn < 10) {
+          this.increaseQuality(item)
+        }
+        if (item.sellIn < 5) {
+          this.increaseQuality(item)
         }
       }
 
     } else {
 
-      if (item.quality > 0) {
-        if (item.name != SULFURA) {
-          item.quality--
-        }
-      }
+      this.decreaseQuality(item)
     }
 
     if (item.sellIn < 0) {
       if (item.name != AGED_BRIE) {
         if (item.name != BACKSTAGE_PASSES) {
-          if (item.quality > 0) {
-            if (item.name != SULFURA) {
-              item.quality--
-            }
-          }
+          this.decreaseQuality(item)
         }
         else {
           item.quality = 0
         }
       }
       else {
-        if (item.quality < 50) {
-          item.quality++
-        }
+        this.increaseQuality(item)
       }
     }
   }
