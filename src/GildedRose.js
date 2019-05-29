@@ -31,41 +31,51 @@ class GildedRose {
   }
 
   updateItem(item) {
-    if (item.name == SULFURA) return
+    switch (item.name) {
+      case SULFURA:
+        break
+      case AGED_BRIE:
+        this.updateAgedBrie(item)
+        break
+      case BACKSTAGE_PASSES:
+        this.updateBackStagePasses(item)
+        break
+      default:
+        this.updateNormalItem(item)
+    }
+  }
 
+  updateNormalItem(item) {
     item.sellIn--
 
-    if (item.name == AGED_BRIE) {
-      this.increaseQuality(item)
-
-    } else if (item.name == BACKSTAGE_PASSES) {
-      if (item.quality < 50) {
-        item.quality++
-        if (item.sellIn < 10) {
-          this.increaseQuality(item)
-        }
-        if (item.sellIn < 5) {
-          this.increaseQuality(item)
-        }
-      }
-
-    } else {
-
-      this.decreaseQuality(item)
-    }
-
+    this.decreaseQuality(item);
     if (item.sellIn < 0) {
-      if (item.name != AGED_BRIE) {
-        if (item.name != BACKSTAGE_PASSES) {
-          this.decreaseQuality(item)
-        }
-        else {
-          item.quality = 0
-        }
-      }
-      else {
-        this.increaseQuality(item)
-      }
+      this.decreaseQuality(item);
+    }
+  }
+
+  updateBackStagePasses(item) {
+    item.sellIn--
+
+    this.increaseQuality(item);
+    if (item.sellIn < 10) {
+      this.increaseQuality(item);
+    }
+    if (item.sellIn < 5) {
+      this.increaseQuality(item);
+    }
+    if (item.sellIn < 0) {
+      item.quality = 0;
+    }
+  }
+
+  updateAgedBrie(item) {
+    item.sellIn--
+
+    this.increaseQuality(item);
+    
+    if (item.sellIn < 0) {
+      this.increaseQuality(item);
     }
   }
 }
