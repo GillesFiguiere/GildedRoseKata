@@ -1,8 +1,60 @@
 const { Item } = require('./Item')
 
+class NormalItem extends Item {
+  constructor(item) {
+    super(item.name, item.sellIn, item.quality)
+    this.item = item
+  }
+
+  increaseQuality() {
+    if (this.item.quality < 50) this.item.quality++
+  }
+
+  decreaseQuality() {
+    if (this.item.quality > 0) this.item.quality--
+  }
+
+  update() {
+    this.item.sellIn--
+
+    this.decreaseQuality()
+
+    if (this.item.sellIn < 0) this.decreaseQuality()
+  }
+}
+
+class AgedBrieItem extends NormalItem {
+  update() {
+    this.item.sellIn--
+
+    this.increaseQuality()
+
+    if (this.item.sellIn < 0) this.increaseQuality()
+  }
+}
+
+class BackstagePassesItem extends NormalItem {
+  update() {
+    this.item.sellIn--
+
+    this.increaseQuality();
+
+    if (this.item.sellIn < 10) this.increaseQuality()
+
+    if (this.item.sellIn < 5) this.increaseQuality()
+
+    if (this.item.sellIn < 0) this.item.quality = 0
+  }
+}
+
+class SulfuraItem extends NormalItem {
+  update() { }
+}
+
 const AGED_BRIE = 'Aged Brie'
 const BACKSTAGE_PASSES = 'Backstage passes to a TAFKAL80ETC concert'
 const SULFURA = 'Sulfuras, Hand of Ragnaros'
+const CONJURED = 'Conjured'
 
 class GildedRose {
   constructor(items = []) {
@@ -18,64 +70,29 @@ class GildedRose {
     return this.items
   }
 
-  increaseQuality(item) {
-    if (item.quality < 50) {
-      item.quality++
-    }
-  }
-
-  decreaseQuality(item) {
-    if (item.quality > 0) {
-      item.quality--
-    }
-  }
-
   updateItem(item) {
     switch (item.name) {
       case SULFURA:
         break
+
       case AGED_BRIE:
-        this.updateAgedBrie(item)
+        const agedBrieItem = new AgedBrieItem(item)
+        agedBrieItem.update()
         break
+
       case BACKSTAGE_PASSES:
-        this.updateBackStagePasses(item)
+        const backstagePassesItem = new BackstagePassesItem(item)
+        backstagePassesItem.update()
         break
+
+      case CONJURED:
+        const conjuredItem = new ConjuredItem(item)
+        conjuredItem.update()
+        break
+
       default:
-        this.updateNormalItem(item)
-    }
-  }
-
-  updateNormalItem(item) {
-    item.sellIn--
-
-    this.decreaseQuality(item);
-    if (item.sellIn < 0) {
-      this.decreaseQuality(item);
-    }
-  }
-
-  updateBackStagePasses(item) {
-    item.sellIn--
-
-    this.increaseQuality(item);
-    if (item.sellIn < 10) {
-      this.increaseQuality(item);
-    }
-    if (item.sellIn < 5) {
-      this.increaseQuality(item);
-    }
-    if (item.sellIn < 0) {
-      item.quality = 0;
-    }
-  }
-
-  updateAgedBrie(item) {
-    item.sellIn--
-
-    this.increaseQuality(item);
-    
-    if (item.sellIn < 0) {
-      this.increaseQuality(item);
+        const normalItem = new NormalItem(item)
+        normalItem.update()
     }
   }
 }
