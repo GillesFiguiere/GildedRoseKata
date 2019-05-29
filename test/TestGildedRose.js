@@ -1,6 +1,6 @@
 const { expect } = require('chai')
 const { GildedRose } = require('../src/GildedRose')
-const { GildedRoseGolden } = require('./GildedRoseGolden')
+const { GildedRoseGolden } = require('../src/GildedRoseGolden')
 const { Item } = require('../src/Item')
 
 
@@ -11,13 +11,14 @@ describe("Gilded Rose", function () {
     const items = []
 
     items.push(new Item('Sulfuras, Hand of Ragnaros', 10, 15))
-    items.push(new Item('Sulfuras, Hand of Ragnaros', 10, 15))
+    items.push(new Item('Sulfuras, Hand of Ragnaros', -50, 50))
     items.push(new Item('Aged Brie', 10, 15))
     items.push(new Item('Aged Brie', 10, 15))
     items.push(new Item('Backstage passes to a TAFKAL80ETC concert', 20, 15))
     items.push(new Item('Backstage passes to a TAFKAL80ETC concert', 10, 15))
     items.push(new Item('Backstage passes to a TAFKAL80ETC concert', 10, 15))
     items.push(new Item('Backstage passes to a TAFKAL80ETC concert', 10, 15))
+    items.push(new Item('Conjured', 10, 15))
 
     const gildedRose = new GildedRose(items)
     const gildedRoseGolden = new GildedRoseGolden(items)

@@ -1,21 +1,21 @@
 const { Item } = require('./Item')
 
-const AGED_BRIE = 'Aged Brie';
-const BACKSTAGE_PASSES = 'Backstage passes to a TAFKAL80ETC concert';
-const SULFURA = 'Sulfuras, Hand of Ragnaros';
+const AGED_BRIE = 'Aged Brie'
+const BACKSTAGE_PASSES = 'Backstage passes to a TAFKAL80ETC concert'
+const SULFURA = 'Sulfuras, Hand of Ragnaros'
 
 class GildedRose {
   constructor(items = []) {
-    this.items = Array.from(items, item => new Item(item.name, item.sellIn, item.quality));
+    this.items = Array.from(items, item => new Item(item.name, item.sellIn, item.quality))
   }
 
   updateQuality() {
     for (var i = 0; i < this.items.length; i++) {
-      const item = this.items[i];
-      this.updateItem(item);
+      const item = this.items[i]
+      this.updateItem(item)
     }
 
-    return this.items;
+    return this.items
   }
 
   updateItem(item) {
@@ -23,27 +23,28 @@ class GildedRose {
 
     item.sellIn--
 
-    if (item.name != AGED_BRIE && item.name != BACKSTAGE_PASSES) {
-      if (item.quality > 0) {
-        if (item.name != SULFURA) {
-          item.quality = item.quality - 1;
-        }
-      }
-    }
-    else {
+    if (item.name == AGED_BRIE || item.name == BACKSTAGE_PASSES) {
       if (item.quality < 50) {
-        item.quality = item.quality + 1;
+        item.quality++
         if (item.name == BACKSTAGE_PASSES) {
           if (item.sellIn < 10) {
             if (item.quality < 50) {
-              item.quality = item.quality + 1;
+              item.quality++
             }
           }
           if (item.sellIn < 5) {
             if (item.quality < 50) {
-              item.quality = item.quality + 1;
+              item.quality++
             }
           }
+        }
+      }
+
+    } else {
+
+      if (item.quality > 0) {
+        if (item.name != SULFURA) {
+          item.quality--
         }
       }
     }
@@ -53,17 +54,17 @@ class GildedRose {
         if (item.name != BACKSTAGE_PASSES) {
           if (item.quality > 0) {
             if (item.name != SULFURA) {
-              item.quality = item.quality - 1;
+              item.quality--
             }
           }
         }
         else {
-          item.quality = item.quality - item.quality;
+          item.quality = 0
         }
       }
       else {
         if (item.quality < 50) {
-          item.quality = item.quality + 1;
+          item.quality++
         }
       }
     }

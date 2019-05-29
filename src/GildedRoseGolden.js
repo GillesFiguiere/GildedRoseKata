@@ -1,4 +1,4 @@
-const { Item } = require('../src/Item')
+const { Item } = require('./Item')
 
 class GildedRoseGolden {
   constructor(items = []) {
