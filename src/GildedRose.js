@@ -51,6 +51,20 @@ class SulfuraItem extends NormalItem {
   update() { }
 }
 
+class ConjuredItem extends NormalItem {
+  update() {
+    this.item.sellIn--
+
+    this.decreaseQuality()
+    this.decreaseQuality()
+
+    if (this.item.sellIn < 0) {
+      this.decreaseQuality()
+      this.decreaseQuality()
+    }
+  }
+}
+
 const AGED_BRIE = 'Aged Brie'
 const BACKSTAGE_PASSES = 'Backstage passes to a TAFKAL80ETC concert'
 const SULFURA = 'Sulfuras, Hand of Ragnaros'

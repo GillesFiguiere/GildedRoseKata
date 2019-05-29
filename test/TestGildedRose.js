@@ -16,9 +16,7 @@ describe("Gilded Rose", function () {
     items.push(new Item('Aged Brie', 0, 15))
     items.push(new Item('Backstage passes to a TAFKAL80ETC concert', 20, 15))
     items.push(new Item('Backstage passes to a TAFKAL80ETC concert', 10, 15))
-    items.push(new Item('Backstage passes to a TAFKAL80ETC concert', 10, 15))
-    items.push(new Item('Backstage passes to a TAFKAL80ETC concert', 10, 15))
-    items.push(new Item('Conjured', 10, 15))
+    items.push(new Item('Normal', 10, 15))
 
     const gildedRose = new GildedRose(items)
     const gildedRoseGolden = new GildedRoseGolden(items)
@@ -37,6 +35,36 @@ describe("Gilded Rose", function () {
       expect(gildedRoseGoldenQuality).to.eql(gildedRoseQuality)
       expect(gildedRoseGoldenSellIn).to.eql(gildedRoseSellIn)
     }
+  })
+
+  it("Should decrease quality of conjured item twice as fast as normal item when sellIn not expired", () => {
+    //GIVEN
+    const items = []
+
+    items.push(new Item('Conjured', 10, 15))
+
+    const gildedRose = new GildedRose(items)
+
+    //WHEN
+    const updatedItems = gildedRose.updateQuality()
+
+    //THEN
+    expect(updatedItems[0].quality).equals(13)
+  })
+
+  it("Should decrease quality of conjured item twice as fast as normal item when sellIn expired", () => {
+    //GIVEN
+    const items = []
+
+    items.push(new Item('Conjured', 0, 15))
+
+    const gildedRose = new GildedRose(items)
+
+    //WHEN
+    const updatedItems = gildedRose.updateQuality()
+
+    //THEN
+    expect(updatedItems[0].quality).equals(11)
   })
 
 })
