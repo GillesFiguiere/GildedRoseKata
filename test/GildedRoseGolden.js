@@ -1,14 +1,8 @@
-class Item {
-  constructor(name, sellIn, quality){
-    this.name = name;
-    this.sellIn = sellIn;
-    this.quality = quality;
-  }
-}
+const { Item } = require('../src/Item')
 
-class Shop {
-  constructor(items=[]){
-    this.items = items;
+class GildedRoseGolden {
+  constructor(items = []) {
+    this.items = Array.from(items, item => new Item(item.name, item.sellIn, item.quality));
   }
   updateQuality() {
     for (var i = 0; i < this.items.length; i++) {
@@ -61,6 +55,5 @@ class Shop {
   }
 }
 module.exports = {
-  Item,
-  Shop
+  GildedRoseGolden
 }
