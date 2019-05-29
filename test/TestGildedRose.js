@@ -13,7 +13,7 @@ describe("Gilded Rose", function () {
     items.push(new Item('Sulfuras, Hand of Ragnaros', 10, 15))
     items.push(new Item('Sulfuras, Hand of Ragnaros', -50, 50))
     items.push(new Item('Aged Brie', 10, 15))
-    items.push(new Item('Aged Brie', 10, 15))
+    items.push(new Item('Aged Brie', 0, 15))
     items.push(new Item('Backstage passes to a TAFKAL80ETC concert', 20, 15))
     items.push(new Item('Backstage passes to a TAFKAL80ETC concert', 10, 15))
     items.push(new Item('Backstage passes to a TAFKAL80ETC concert', 10, 15))
