@@ -2,7 +2,7 @@ const { Item } = require('./Item')
 
 class GildedRoseGolden {
   constructor(items = []) {
-    this.items = Array.from(items, item => new Item(item.name, item.sellIn, item.quality));
+    this.items = items;
   }
   updateQuality() {
     for (var i = 0; i < this.items.length; i++) {

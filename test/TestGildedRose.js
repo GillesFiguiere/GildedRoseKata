@@ -2,6 +2,11 @@ const { expect } = require('chai')
 const { GildedRose } = require('../src/GildedRose')
 const { GildedRoseGolden } = require('../src/GildedRoseGolden')
 const { Item } = require('../src/Item')
+const { SulfuraItem } = require('../src/SulfuraItem')
+const { AgedBrieItem } = require('../src/AgedBrieItem')
+const { BackstagePassesItem } = require('../src/BackstagePassesItem')
+const { NormalItem } = require('../src/NormalItem')
+const { ConjuredItem } = require('../src/ConjuredItem')
 
 
 describe("Gilded Rose", function () {
@@ -10,16 +15,19 @@ describe("Gilded Rose", function () {
     //GIVEN
     const items = []
 
-    items.push(new Item('Sulfuras, Hand of Ragnaros', 10, 15))
-    items.push(new Item('Sulfuras, Hand of Ragnaros', -50, 50))
-    items.push(new Item('Aged Brie', 10, 15))
-    items.push(new Item('Aged Brie', 0, 15))
-    items.push(new Item('Backstage passes to a TAFKAL80ETC concert', 20, 15))
-    items.push(new Item('Backstage passes to a TAFKAL80ETC concert', 10, 15))
-    items.push(new Item('Normal', 10, 15))
+    items.push(new SulfuraItem(10, 15))
+    items.push(new SulfuraItem(-50, 50))
+    items.push(new AgedBrieItem(10, 15))
+    items.push(new AgedBrieItem(0, 15))
+    items.push(new BackstagePassesItem(20, 15))
+    items.push(new BackstagePassesItem(10, 15))
+    items.push(new NormalItem(10, 15))
+    items.push(new NormalItem(0, 15))
+
+    const goldenItems = Array.from(items, item => new Item(item.name, item.sellIn, item.quality))
 
     const gildedRose = new GildedRose(items)
-    const gildedRoseGolden = new GildedRoseGolden(items)
+    const gildedRoseGolden = new GildedRoseGolden(goldenItems)
 
     //WHEN
     for (let day = 0; day < 100; day++) {
@@ -35,7 +43,7 @@ describe("Gilded Rose", function () {
     //GIVEN
     const items = []
 
-    items.push(new Item('Conjured', 10, 15))
+    items.push(new ConjuredItem(10, 15))
 
     const gildedRose = new GildedRose(items)
 
@@ -50,7 +58,7 @@ describe("Gilded Rose", function () {
     //GIVEN
     const items = []
 
-    items.push(new Item('Conjured', 0, 15))
+    items.push(new ConjuredItem(0, 15))
 
     const gildedRose = new GildedRose(items)
 
