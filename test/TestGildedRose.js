@@ -26,14 +26,8 @@ describe("Gilded Rose", function () {
       gildedRose.updateQuality()
       gildedRoseGolden.updateQuality()
 
-      const gildedRoseSellIn = gildedRose.items.map(item => item.sellIn)
-      const gildedRoseGoldenSellIn = gildedRoseGolden.items.map(item => item.sellIn)
-      const gildedRoseQuality = gildedRose.items.map(item => item.quality)
-      const gildedRoseGoldenQuality = gildedRoseGolden.items.map(item => item.quality)
-
       //THEN
-      expect(gildedRoseGoldenQuality).to.eql(gildedRoseQuality)
-      expect(gildedRoseGoldenSellIn).to.eql(gildedRoseSellIn)
+      expect(gildedRoseGolden).to.eql(gildedRose)
     }
   })
 
